@@ -41,9 +41,7 @@ export default function Home() {
         title="Go to Details"
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
-        onPress={() =>
-          router.push({ pathname: '(main)/(tabs)/home/details', params: { from: 'Home' } })
-        }
+        onPress={() => router.push({ pathname: '(tabs)/home/details', params: { from: 'Home' } })}
       />
     </View>
   );

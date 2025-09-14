@@ -1,50 +1,113 @@
-import { Text, View, StyleSheet } from 'react-native';
-import useColorScheme from '@/hooks/useColorScheme';
-import Button from '@/components/elements/Button';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { colors } from '@/theme';
+import useColorScheme from '@/hooks/useColorScheme';
+import Button from '@/components/elements/Button';
 
 const styles = StyleSheet.create({
-  root: {
+  container: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.lightGrayPurple,
+    padding: 16,
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
+  section: {
+    marginBottom: 24,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  buttonTitle: {
+  sectionTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginBottom: 12,
+    color: colors.darkPurple,
+  },
+  item: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.primary,
+  },
+  itemText: {
     fontSize: 16,
-    color: colors.white,
-    textAlign: 'center',
+    color: colors.primary,
   },
-  button: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 22,
-    height: 44,
-    width: '50%',
-    backgroundColor: colors.lightPurple,
+  lastItem: {
+    borderBottomWidth: 0,
   },
 });
 
 export default function Profile() {
   const router = useRouter();
   const { isDark } = useColorScheme();
+
+  const sections = [
+    {
+      title: 'Account',
+      items: [
+        { label: 'Account Info', path: '/profile/accountInfo' }, // Fixed path
+        { label: 'My Vehicles', path: '/profile/vehicles' }, // Fixed path
+        { label: 'Saved Places', path: '/profile/savedRoutes' }, // Fixed path
+        // { label: 'Documents', path: '/profile/documents' }, // Fixed path
+      ],
+    },
+    // {
+    //   title: 'Payments',
+    //   items: [
+    //     { label: 'Payment Methods / Wallet', path: '/profile/paymentMethods' },
+    //     { label: 'Transaction History', path: '/profile/transactions' },
+    //     { label: 'Subscriptions / Plans', path: '/profile/subscriptions' },
+    //   ],
+    // },
+    {
+      title: 'Ride & Social',
+      items: [
+        { label: 'Reviews & Ratings', path: '/profile/reviews/ReviewsScreen' },
+        { label: 'Refer & Earn', path: '/profile/refer' },
+      ],
+    },
+    {
+      title: 'Safety & Support',
+      items: [
+        { label: 'Complaints', path: '/profile/complaints' },
+        { label: 'Emergency Contacts', path: 'profile/emergencyContacts/EmergencyContactsScreen' },
+        { label: 'Privacy & Security', path: '/profile/privacyAndSupport' },
+        { label: 'Help & Support', path: '/profile/helpAndSupport' },
+      ],
+    },
+    {
+      title: 'App',
+      items: [
+        { label: 'Settings', path: '/profile/settings' },
+        { label: 'Logout', path: '/profile/logout' },
+      ],
+    },
+  ];
+
   return (
-    <View style={[styles.root, isDark && { backgroundColor: colors.blackGray }]}>
-      <Text style={[styles.title, isDark && { color: colors.gray }]}>Profile</Text>
-      <Button
-        title="Go to Details"
-        titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
-        style={styles.button}
-        onPress={() =>
-          router.push({ pathname: '(main)/(tabs)/profile/details', params: { from: 'Details' } })
-        }
-      />
-    </View>
+    <ScrollView style={[styles.container, isDark && { backgroundColor: colors.blackGray }]}>
+      {sections.map((section, sectionIndex) => (
+        <View
+          key={section.title}
+          style={[styles.section, isDark && { backgroundColor: colors.primary }]}>
+          <Text style={[styles.sectionTitle, isDark && { color: colors.white }]}>
+            {section.title}
+          </Text>
+          {section.items.map((item, itemIndex) => (
+            <TouchableOpacity
+              key={item.path}
+              onPress={() => {
+                router.push(item.path);
+              }}
+              style={[styles.item, itemIndex === section.items.length - 1 && styles.lastItem]}>
+              <Text style={[styles.itemText, isDark && { color: colors.white }]}>{item.label}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ))}
+    </ScrollView>
   );
 }

@@ -43,15 +43,48 @@ const styles = StyleSheet.create({
 export default function Profile() {
   const router = useRouter();
   const { isDark } = useColorScheme();
-
   const sections = [
     {
       title: 'Account',
       items: [
-        { label: 'Account Info', path: '/profile/accountInfo' }, // Fixed path
-        { label: 'My Vehicles', path: '/profile/vehicles' }, // Fixed path
-        { label: 'Saved Places', path: '/profile/savedRoutes' }, // Fixed path
-        // { label: 'Documents', path: '/profile/documents' }, // Fixed path
+        { label: 'Account Info', path: '/profile/accountInfo' },
+        { label: 'My Vehicles', path: '/profile/vehicles' },
+        { label: 'Saved Routes', path: '/profile/savedRoute/SavedRoutes' },
+      ],
+    },
+
+    {
+      title: 'Settings & Security',
+      items: [
+        { label: 'Change Password', path: '/profile/changePassword' },
+        { label: 'Ride Preferences', path: '/profile/ridePreferences' },
+      ],
+    },
+
+    {
+      title: 'Ride & Social',
+      items: [
+        { label: 'Reviews & Ratings', path: '/profile/reviews/ReviewsScreen' },
+        { label: 'Refer & Earn', path: '/profile/referAndEarn' },
+      ],
+    },
+
+    {
+      title: 'Safety & Support',
+      items: [
+        { label: 'Emergency Contacts', path: '/profile/emergencyContacts/EmergencyContactsScreen' },
+        { label: 'Privacy & Security', path: '/profile/privacyAndSupport' },
+        { label: 'Help & Support', path: '/profile/helpAndSupport' },
+        { label: 'Contact Us', path: '/profile/contactUs' }, // moved here
+      ],
+    },
+
+    {
+      title: 'About & App Actions',
+      items: [
+        { label: 'About Us', path: '/profile/aboutUs' },
+        { label: 'Delete Account', path: '/profile/settings' },
+        { label: 'Logout', path: '/profile/logout' },
       ],
     },
     // {
@@ -62,29 +95,6 @@ export default function Profile() {
     //     { label: 'Subscriptions / Plans', path: '/profile/subscriptions' },
     //   ],
     // },
-    {
-      title: 'Ride & Social',
-      items: [
-        { label: 'Reviews & Ratings', path: '/profile/reviews/ReviewsScreen' },
-        { label: 'Refer & Earn', path: '/profile/refer' },
-      ],
-    },
-    {
-      title: 'Safety & Support',
-      items: [
-        { label: 'Complaints', path: '/profile/complaints' },
-        { label: 'Emergency Contacts', path: 'profile/emergencyContacts/EmergencyContactsScreen' },
-        { label: 'Privacy & Security', path: '/profile/privacyAndSupport' },
-        { label: 'Help & Support', path: '/profile/helpAndSupport' },
-      ],
-    },
-    {
-      title: 'App',
-      items: [
-        { label: 'Settings', path: '/profile/settings' },
-        { label: 'Logout', path: '/profile/logout' },
-      ],
-    },
   ];
 
   return (

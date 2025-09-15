@@ -20,6 +20,7 @@ export default function ProfileStackLayout() {
         name="index"
         options={{
           title: '',
+
           //headerTitle: () => <NavigationHeaderTitle />,
           // headerLeft: () => <NavigationHeaderLeft onPress={toggleDrawer} />,
           headerTitleAlign: 'center',
@@ -33,15 +34,31 @@ export default function ProfileStackLayout() {
         }}
       />
       <Stack.Screen
-        name="accountInfo"
+        name="accountInfo/index"
         options={{
+          headerShown: false,
           title: 'Account Info',
           headerTitle: 'Account Info',
         }}
       />
       <Stack.Screen
+        name="ridePreferences/index"
+        options={{
+          title: 'Ride preferences',
+          headerTitle: 'Account Info',
+        }}
+      />
+      <Stack.Screen
+        name="referAndEarn/index"
+        options={{
+          title: 'Refer & Earn',
+          headerTitle: 'Refer & Earn',
+        }}
+      />
+      <Stack.Screen
         name="vehicles"
         options={{
+          headerShown: false,
           title: 'Vehicle Info',
           headerTitle: 'Vehicle Info',
         }}
@@ -53,6 +70,43 @@ export default function ProfileStackLayout() {
           headerTitle: 'Saved Places',
         }}
       />
+
+      <Stack.Screen
+        name="savedRoute/SavedRoutes"
+        options={{
+          title: 'Saved Routes',
+          headerTitle: 'Saved Places',
+        }}
+      />
+      <Stack.Screen
+        name="savedRoute/AddNewRoute"
+        options={{
+          title: 'Add New Routes',
+          headerTitle: 'Add New Routes',
+        }}
+      />
+      <Stack.Screen
+        name="contactUs/index"
+        options={{
+          title: 'Contact Us',
+          headerTitle: 'Contact Us',
+        }}
+      />
+      <Stack.Screen
+        name="changePassword/index"
+        options={{
+          title: 'Change Password',
+          headerTitle: 'Chnage Password',
+        }}
+      />
+      <Stack.Screen
+        name="aboutUs/index"
+        options={{
+          title: 'Change Password',
+          headerTitle: 'Chnage Password',
+        }}
+      />
+
       <Stack.Screen
         name="reviews/ReviewsScreen"
         options={{

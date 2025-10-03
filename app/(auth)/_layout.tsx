@@ -7,10 +7,13 @@ export default function AuthLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="login" options={{ headerShown: false }} />
-      <Stack.Screen name="register" options={{ headerShown: true, title: 'Create Account' }} />
-      <Stack.Screen name="OtpPage" options={{ headerShown: true, title: 'Create Account' }} />
-      <Stack.Screen name="PasswordReset" options={{ headerShown: true, title: 'Create Account' }} />
+      <Stack.Screen name="Login/index" options={{ headerShown: false }} />
+      <Stack.Screen name="Signup/index" options={{ headerShown: false, title: '' }} />
+      <Stack.Screen name="OtpPage/index" options={{ headerShown: false, title: '' }} />
+      <Stack.Screen
+        name="PasswordReset/index"
+        options={{ headerShown: true, title: 'Create Account' }}
+      />
     </Stack>
   );
 }

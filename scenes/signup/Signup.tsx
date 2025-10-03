@@ -61,14 +61,15 @@ export default function Signup() {
         <Text style={[styles.title, isDark && { color: colors.gray }]}>
           Sign up with your phone number
         </Text>
-        <TextField placeholder="First name" keyboardType="email-address"></TextField>
-        <TextField placeholder=" Last Name " keyboardType="email-address"></TextField>
         <PhoneNumberField
           placeholder="Enter phone number"
           value=""
           onChangeText={() => {}}></PhoneNumberField>
-        <Text style={[styles.subtitle, isDark && { color: colors.gray }]}>Select Gender</Text>
-        <RadioGroup options={['Male', 'Female', 'Other']} value={gender} onChange={setGender} />
+        <TextField placeholder="Password"></TextField>
+        <TextField placeholder="Confirm Password"></TextField>
+
+        {/* <Text style={[styles.subtitle, isDark && { color: colors.gray }]}>Select Gender</Text>
+        <RadioGroup options={['Male', 'Female', 'Other']} value={gender} onChange={setGender} /> */}
         <View
           style={{
             flexDirection: 'row',
@@ -90,7 +91,9 @@ export default function Signup() {
         title="Create an account"
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
-        onPress={() => {}}
+        onPress={() => {
+          router.push({ pathname: '/(auth)/OtpPage' });
+        }}
       />
     </View>
   );

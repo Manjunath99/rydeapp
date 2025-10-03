@@ -103,7 +103,9 @@ export default function Login() {
           isDark && { color: colors.white },
         ]}
         style={[styles.secondaryButton]}
-        onPress={() => {}}
+        onPress={() => {
+          router.push({ pathname: '/(auth)/Signup' });
+        }}
       />
     </View>
   );

@@ -121,7 +121,9 @@ export default function OtpPage() {
         title="Verify OTP"
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
-        onPress={() => {}}
+        onPress={() => {
+          router.replace('/(setup)/BasicSetup');
+        }}
       />
     </View>
   );

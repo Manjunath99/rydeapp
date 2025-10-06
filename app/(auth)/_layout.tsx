@@ -1,7 +1,4 @@
-import { Drawer } from 'expo-router/drawer';
-import DrawerContents from '@/components/layouts/DrawerContents';
 import { Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native';
 
 export default function AuthLayout() {
   return (

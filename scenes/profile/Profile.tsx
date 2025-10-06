@@ -64,6 +64,7 @@ export default function Profile() {
     {
       title: 'Ride & Social',
       items: [
+        { label: 'Ride History', path: '/profile/reviews/ReviewsScreeny' },
         { label: 'Reviews & Ratings', path: '/profile/reviews/ReviewsScreen' },
         { label: 'Refer & Earn', path: '/profile/referAndEarn' },
       ],

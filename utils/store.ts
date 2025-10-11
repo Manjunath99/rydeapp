@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import app from '@/slices/app.slice';
+import rides from '@/slices/ridehistory.slice';
+import emergencyContact from '@/slices/emergencyConatct.slice';
 import config from '@/utils/config';
 import { Env } from '@/types/env';
 import logger from 'redux-logger';
@@ -7,6 +9,8 @@ import logger from 'redux-logger';
 const store = configureStore({
   reducer: {
     app,
+    rides,
+    emergencyContact,
     // add more store ...
   },
   middleware: getDefaultMiddleware =>

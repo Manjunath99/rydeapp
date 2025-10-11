@@ -11,3 +11,4 @@ export async function getUserAsync(): Promise<User> {
     return Promise.reject(err);
   }
 }
+

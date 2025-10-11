@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, use } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import BottomSheetContents from '@/components/layouts/BottomSheetContents';
 import BottomSheet from '@/components/elements/BottomSheet';
@@ -21,52 +21,43 @@ function Router() {
   const { setPersistData, getPersistData } = useDataPersist();
   const [isOpen, setOpen] = useState(false);
 
-  /**
-   * preload assets and user info
-   */
   useEffect(() => {
     (async () => {
       try {
-        // preload assets
         await Promise.all([loadImages(), loadFonts()]);
 
-        // fetch & store user data to store (fake promise function to simulate async function)
         const user = await getUserAsync();
+        console.log('Fetched user:', user);
         dispatch(setUser(user));
         dispatch(setLoggedIn(!!user));
         if (user) setPersistData<User>(DataPersistKeys.USER, user);
 
-        // hide splash screen
         SplashScreen.hideAsync();
         setOpen(true);
       } catch {
-        // if preload failed, try to get user data from persistent storage
         getPersistData<User>(DataPersistKeys.USER)
           .then(user => {
             if (user) dispatch(setUser(user));
             dispatch(setLoggedIn(!!user));
           })
           .finally(() => {
-            // hide splash screen
             SplashScreen.hideAsync();
 
-            // show bottom sheet
             setOpen(true);
           });
+      } finally {
+        SplashScreen.hideAsync();
+        setOpen(true);
       }
     })();
   }, []);
+
+  if (!isOpen) return null;
 
   return (
     <Fragment>
       <Slot />
       <StatusBar style="light" />
-      {/* <BottomSheet
-        isOpen={isOpen}
-        initialOpen
-        backgroundStyle={isDark && { backgroundColor: colors.blackGray }}>
-        <BottomSheetContents onClose={() => setOpen(false)} />
-      </BottomSheet> */}
     </Fragment>
   );
 }

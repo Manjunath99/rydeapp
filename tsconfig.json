@@ -11,5 +11,5 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-, "app/(setup)/VehicleSetup"  ]
+, "app/(setup)/VehicleSetup", "metro.config.js"  ]
 }

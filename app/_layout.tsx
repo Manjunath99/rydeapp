@@ -8,7 +8,7 @@ import { loadImages, loadFonts, colors } from '@/theme';
 import { Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useAppSlice } from '@/slices';
-import { getUserAsync } from '@/services';
+import { UserService } from '@/services';
 import Provider from '@/providers';
 import { User } from '@/types';
 
@@ -26,8 +26,16 @@ function Router() {
       try {
         await Promise.all([loadImages(), loadFonts()]);
 
-        const user = await getUserAsync();
-        console.log('Fetched user:', user);
+        const user = await UserService.getUserAsync();
+        const jdjd = await UserService.updateProfile({
+          name: 'Jed',
+          email: 'jed@jed.com',
+        });
+
+        if (user) {
+          console.log('[##] user', user);
+        }
+
         dispatch(setUser(user));
         dispatch(setLoggedIn(!!user));
         if (user) setPersistData<User>(DataPersistKeys.USER, user);

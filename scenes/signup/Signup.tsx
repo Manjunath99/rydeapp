@@ -8,6 +8,7 @@ import { useState } from 'react';
 import TextField from '@/components/elements/TextField';
 import { AntDesign } from '@expo/vector-icons';
 import PhoneNumberField from '@/components/elements/PhoneNumberField';
+import { useRegisterUser } from '@/hooks/apiHooks/useUserApis';
 
 const styles = StyleSheet.create({
   root: {
@@ -53,7 +54,31 @@ const styles = StyleSheet.create({
 export default function Signup() {
   const router = useRouter();
   const { isDark } = useColorScheme();
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
   const [gender, setGender] = useState('Male');
+
+  const { mutate, isError, error, isSuccess, data } = useRegisterUser();
+
+  const handleRegister = () => {
+    mutate(
+      { phoneNumber: phone, password: password },
+      {
+        onSuccess: user => {
+          console.log('Registered user:', user);
+          alert('Registration successful!');
+        },
+        onError: (err: any) => {
+          console.error('Registration failed', err);
+          alert('Failed to register!');
+        },
+        onSettled: () => {
+          console.log('Mutation completed');
+        },
+      },
+    );
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
@@ -63,13 +88,16 @@ export default function Signup() {
         </Text>
         <PhoneNumberField
           placeholder="Enter phone number"
-          value=""
-          onChangeText={() => {}}></PhoneNumberField>
-        <TextField placeholder="Password"></TextField>
-        <TextField placeholder="Confirm Password"></TextField>
+          value={phone}
+          onChangeText={setPhone}></PhoneNumberField>
+        <TextField value={password} onChangeText={setPassword} placeholder="Password"></TextField>
+        <TextField
+          value={confirmPassword}
+          onChangeText={setconfirmPassword}
+          placeholder="Confirm Password"></TextField>
 
-        {/* <Text style={[styles.subtitle, isDark && { color: colors.gray }]}>Select Gender</Text>
-        <RadioGroup options={['Male', 'Female', 'Other']} value={gender} onChange={setGender} /> */}
+        <Text style={[styles.subtitle, isDark && { color: colors.gray }]}>Select Gender</Text>
+        <RadioGroup options={['Male', 'Female', 'Other']} value={gender} onChange={setGender} />
         <View
           style={{
             flexDirection: 'row',

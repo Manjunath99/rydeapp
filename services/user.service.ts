@@ -7,7 +7,7 @@ import { User } from '@/types';
 export const UserService = {
 
 
-  login : async (payload: Partial<User>): Promise<User> => {
+  login : async (payload: Partial<User>) : Promise<User> => {
     try {
       const data = await mainApiMethods.post<User>(API_URLS.USER.LOGIN, payload);
       return data;

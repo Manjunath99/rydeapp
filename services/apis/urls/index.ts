@@ -22,38 +22,38 @@ export const API_URLS = {
     LOGIN: `/api/auth/login`,
     REGISTER: `/api/auth/register`,
   },
+RIDE: {
+  LIST: `/api/rideHistory/list`,
+  BOOK: `/api/rideHistory/book`,
+  CANCEL: `/api/rideHistory/cancel`,
+},
 
-  RIDE: {
-    LIST: `${BASE_URL}/api/rideHistory/list`,
-    BOOK: `${BASE_URL}/api/rideHistory/book`,
-    CANCEL: `${BASE_URL}/api/rideHistory/cancel`,
-  },
+VEHICLE: {
+  LIST: `/api/vehicles/list`,
+  ADD: `/api/vehicles/add`,
+  UPDATE: `/api/vehicles/update`,
+  DELETE: `/api/vehicles/delete`,
+},
 
-  VEHICLE: {
-    LIST: `${BASE_URL}/api/vehicles/list`,
-    ADD: `${BASE_URL}/api/vehicles/add`,
-    UPDATE: `${BASE_URL}/api/vehicles/update`,
-    DELETE: `${BASE_URL}/api/vehicles/delete`,
-  },
+EMERGENCY_CONTACT: {
+  LIST: `/api/emergencyContacts`,
+  ADD: `/api/emergencyContacts/add`,
+  UPDATE: `/api/emergencyContacts/update`,
+  DELETE: `/api/emergencyContacts/delete`,
+},
 
-  EMERGENCY_CONTACT: {
-    LIST: `${BASE_URL}/api/emergencyContacts/list`,
-    ADD: `${BASE_URL}/api/emergencyContacts/add`,
-    UPDATE: `${BASE_URL}/api/emergencyContacts/update`,
-    DELETE: `${BASE_URL}/api/emergencyContacts/delete`,
-  },
+SAVED_ROUTE: {
+  LIST: `/api/savedRoutes/list`,
+  ADD: `/api/savedRoutes/add`,
+  UPDATE: `/api/savedRoutes/update`,
+  DELETE: `/api/savedRoutes/delete`,
+},
 
-  SAVED_ROUTE: {
-    LIST: `${BASE_URL}/api/savedRoutes/list`,
-    ADD: `${BASE_URL}/api/savedRoutes/add`,
-    UPDATE: `${BASE_URL}/api/savedRoutes/update`,
-    DELETE: `${BASE_URL}/api/savedRoutes/delete`,
-  },
+LICENSE: {
+  LIST: `/api/licenses/list`,
+  ADD: `/api/licenses/add`,
+  UPDATE: `/api/licenses/update`,
+  DELETE: `/api/licenses/delete`,
+},
 
-  LICENSE: {
-    LIST: `${BASE_URL}/api/licenses/list`,
-    ADD: `${BASE_URL}/api/licenses/add`,
-    UPDATE: `${BASE_URL}/api/licenses/update`,
-    DELETE: `${BASE_URL}/api/licenses/delete`,
-  },
 };

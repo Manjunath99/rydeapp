@@ -64,7 +64,7 @@ export default function OnBoarding() {
           <Pressable
             onPress={() => {
               if (count === marketingLines.length - 1) {
-                router.replace('/(auth)');
+                router.push({ pathname: '/(auth)/Login' });
               } else {
                 setCount(count + 1);
               }

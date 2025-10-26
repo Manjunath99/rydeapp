@@ -9,6 +9,7 @@ import TextField from '@/components/elements/TextField';
 import { AntDesign } from '@expo/vector-icons';
 import PhoneNumberField from '@/components/elements/PhoneNumberField';
 import { useRegisterUser } from '@/hooks/apiHooks/useUserApis';
+import { validate } from 'uuid';
 
 const styles = StyleSheet.create({
   root: {
@@ -80,6 +81,15 @@ export default function Signup() {
     );
   };
 
+  const validateForm = () => {
+    return (
+      phone.length > 0 &&
+      password.length > 0 &&
+      confirmPassword.length > 0 &&
+      password === confirmPassword
+    );
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={[styles.root, isDark && { backgroundColor: colors.blackGray }]}>
@@ -120,7 +130,11 @@ export default function Signup() {
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
         onPress={() => {
-          router.push({ pathname: '/(auth)/OtpPage' });
+          if (!validateForm()) {
+            alert('Please fill in all fields');
+            return;
+          }
+          handleRegister();
         }}
       />
     </View>

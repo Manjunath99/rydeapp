@@ -16,11 +16,11 @@ export const API_URLS = {
   BASE_URL,
 
   USER: {
-    PROFILE: `${BASE_URL}/api/auth/profile`,
-    UPDATE: `${BASE_URL}/api/auth/update`,
-    DELETE: `${BASE_URL}/api/auth/delete`,
-    LOGIN: `${BASE_URL}/api/auth/login`,
-    REGISTER: `${BASE_URL}/api/auth/register`,
+    PROFILE: `/api/auth/profile`,
+    UPDATE: `/api/auth/update`,
+    DELETE: `/api/auth/delete`,
+    LOGIN: `/api/auth/login`,
+    REGISTER: `/api/auth/register`,
   },
 
   RIDE: {

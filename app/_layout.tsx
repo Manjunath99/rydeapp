@@ -11,6 +11,8 @@ import { useAppSlice } from '@/slices';
 import { UserService } from '@/services';
 import Provider from '@/providers';
 import { User } from '@/types';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import '@/services/apis/interceptors';
 
 // keep the splash screen visible while complete fetching resources
 SplashScreen.preventAutoHideAsync();
@@ -71,9 +73,13 @@ function Router() {
 }
 
 export default function RootLayout() {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <Provider>
-      <Router />
+      <QueryClientProvider client={queryClient}>
+        <Router />
+      </QueryClientProvider>
     </Provider>
   );
 }

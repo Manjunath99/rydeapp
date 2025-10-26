@@ -90,7 +90,7 @@ export default function Login() {
 
           <Text
             style={[styles.secondaryText, isDark && { color: colors.gray, textAlign: 'center' }]}>
-            By signing up, you agree to our Terms & Conditions and Privacy Policy
+            By signing in, you agree to our Terms & Conditions and Privacy Policy
           </Text>
         </View>
       </View>
@@ -103,10 +103,18 @@ export default function Login() {
           isDark && { color: colors.white },
         ]}
         style={[styles.secondaryButton]}
-        onPress={() => {
-          router.push({ pathname: '/(auth)/Signup' });
-        }}
+        onPress={() => {}}
       />
+      <Text>
+        Don't have an account?{' '}
+        <Text
+          style={[styles.secondaryText, { color: colors.primary }]}
+          onPress={() => {
+            router.push({ pathname: '/(auth)/Signup' });
+          }}>
+          Sign up
+        </Text>
+      </Text>
     </View>
   );
 }

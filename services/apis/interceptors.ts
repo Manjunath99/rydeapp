@@ -2,6 +2,13 @@
 export function attachInterceptors(apiInstance: any) {
   apiInstance.interceptors.request.use(
   async (config:any) => {
+    console.log("frenjkherbfjfeh");
+    console.log('[REQUEST]', {
+    method: config.method,
+    url: config.baseURL + config.url,
+    headers: config.headers,
+    data: config.data,
+  });
     // const token = await getToken(); 
     // if (token) {
     //   config.headers.Authorization = `Bearer ${token}`;

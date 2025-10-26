@@ -1,6 +1,6 @@
 // services/user.service.ts
 import { RegisterUserPayload } from '@/types/authPayload/registerPayload';
-import { mainApi } from './apis/apiClient';
+import { mainApiMethods } from './apis/index';
 import { API_URLS } from './apis/urls';
 import { User } from '@/types';
 
@@ -9,8 +9,8 @@ export const UserService = {
 
   login : async (payload: Partial<User>): Promise<User> => {
     try {
-      const data = await mainApi.post<User>(API_URLS.USER.LOGIN, payload);
-      return data.data;
+      const data = await mainApiMethods.post<User>(API_URLS.USER.LOGIN, payload);
+      return data;
     } catch (err) {
       return Promise.reject(err);
     }
@@ -18,8 +18,8 @@ export const UserService = {
 
   register: async (payload: Partial<RegisterUserPayload>): Promise<User> => {
     try {
-      const data = await mainApi.post<User>(API_URLS.USER.REGISTER, payload);
-      return data.data;
+      const data = await mainApiMethods.post<User>(API_URLS.USER.REGISTER, payload);
+      return data;
     } catch (err) {
       return Promise.reject(err);
     }
@@ -30,8 +30,8 @@ export const UserService = {
   
   getProfile: async (): Promise<User> => {
     try {
-      const data = await mainApi.get<User>(API_URLS.USER.PROFILE);
-      return data.data; 
+      const data = await mainApiMethods.get<User>(API_URLS.USER.PROFILE);
+      return data; 
     } catch (err) {
       return Promise.reject(err);
     }
@@ -40,9 +40,9 @@ export const UserService = {
   updateProfile: async (payload: Partial<User>): Promise<User> => {
     try {
       console.log('updateProfile', API_URLS.USER.UPDATE, payload);
-      const data = await mainApi.put<User>(API_URLS.USER.UPDATE, payload);
+      const data = await mainApiMethods.put<User>(API_URLS.USER.UPDATE, payload);
       console.log('data', data);
-      return data.data;
+      return data;
     } catch (err) {
        console.log('datadatadata', err);
       return Promise.reject(err);
@@ -51,7 +51,7 @@ export const UserService = {
 
   deleteAccount: async (): Promise<void> => {
     try {
-      await mainApi.delete(API_URLS.USER.UPDATE);
+      await mainApiMethods.delete(API_URLS.USER.UPDATE);
     } catch (err) {
       return Promise.reject(err);
     }

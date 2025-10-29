@@ -12,9 +12,9 @@ export const EmergencyContactService = {
       return Promise.reject(err);
     }
   },
-  addEmergencyContact: async (payload: Partial<EmeregencyContact>): Promise<EmeregencyContact> =>  {
+  addEmergencyContact: async (payload: Partial<EmeregencyContact>,userId: string): Promise<EmeregencyContact> =>  {
     try {
-      const data = await mainApiMethods.post<EmeregencyContact>(API_URLS.EMERGENCY_CONTACT.ADD, payload);
+      const data = await mainApiMethods.post<EmeregencyContact>(API_URLS.EMERGENCY_CONTACT.ADD, payload, { params: { userId } });
       return data;
     } catch (err) {
       return Promise.reject(err);

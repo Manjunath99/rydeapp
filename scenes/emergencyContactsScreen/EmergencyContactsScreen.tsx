@@ -4,11 +4,15 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Button from '@/components/elements/Button';
 import { useRouter } from 'expo-router';
+import { useGetEmergencyContacts } from '@/hooks/apiHooks/useEmergencyContactApis';
+import { useAppSlice } from '@/slices';
 
 export default function EmergencyContactsScreen() {
   const router = useRouter();
+  const { user } = useAppSlice();
 
-  // Dummy local state (replace with API/DynamoDB data later)
+  const { data, error, isLoading, refetch } = useGetEmergencyContacts(user?.email ?? '');
+
   const [contacts, setContacts] = useState([
     {
       contactId: '1',

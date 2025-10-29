@@ -10,6 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 import PhoneNumberField from '@/components/elements/PhoneNumberField';
 import { useRegisterUser } from '@/hooks/apiHooks/useUserApis';
 import { validate } from 'uuid';
+import { useAppSlice } from '@/slices/app.slice';
 
 const styles = StyleSheet.create({
   root: {
@@ -59,27 +60,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const [gender, setGender] = useState('Male');
-
-  const { mutate, isError, error, isSuccess, data } = useRegisterUser();
-
-  const handleRegister = () => {
-    mutate(
-      { phoneNumber: phone, password: password },
-      {
-        onSuccess: user => {
-          console.log('Registered user:', user);
-          alert('Registration successful!');
-        },
-        onError: (err: any) => {
-          console.error('Registration failed', err);
-          alert('Failed to register!');
-        },
-        onSettled: () => {
-          console.log('Mutation completed');
-        },
-      },
-    );
-  };
+  const { setAuthData } = useAppSlice();
 
   const validateForm = () => {
     return (
@@ -134,9 +115,37 @@ export default function Signup() {
             alert('Please fill in all fields');
             return;
           }
-          handleRegister();
+          router.push({
+            pathname: '/(auth)/OtpPage',
+            params: {
+              type: 'signup',
+              phoneNumber: phone,
+              password: password,
+              gender: gender,
+            },
+          });
         }}
       />
+      <View
+        style={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingBottom: 24,
+        }}>
+        <Text>
+          Already have an account?{' '}
+          <Text
+            style={[styles.secondaryText, { color: colors.primary }]}
+            onPress={() => {
+              setAuthData({ phoneNumber: phone, password: password, gender: gender });
+
+              router.replace({ pathname: '/(auth)/Login' });
+            }}>
+            Login
+          </Text>
+        </Text>
+      </View>
     </View>
   );
 }

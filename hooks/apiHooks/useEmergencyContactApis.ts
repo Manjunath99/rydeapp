@@ -2,16 +2,27 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { EmeregencyContact,EmergencyContacts } from '@/types/emergencyContact';
 import { EmergencyContactService } from '@/services/emeregencyContact.service';
 
-// ✅ Fetch all emergency contacts
-export const useEmergencyContacts = (userId: string) => {
+
+export const useAddEmergencyContact = () => {
+  return useMutation<EmeregencyContact, Error, { payload: Partial<EmeregencyContact>; userId: string }>({
+    mutationFn: ({ payload, userId }) =>
+      EmergencyContactService.addEmergencyContact(payload, userId),
+  });
+};
+
+
+
+export const useGetEmergencyContacts = (userId: string) => {
   return useQuery<EmergencyContacts>({
-    queryKey: ['emergency-contacts',userId],
+    queryKey: ['emergency-contacts'],
 queryFn: ({ queryKey }) => {
-      const [ id] = queryKey; 
-      return EmergencyContactService.getEmergencyContact(id as string);
+      
+      return EmergencyContactService.getEmergencyContact(userId);
     },
     });
 };
+
+
 
 // ✅ Fetch single emergency contact by ID
 // export const useEmergencyContactById = (id: string) => {

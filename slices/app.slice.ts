@@ -3,16 +3,30 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { State, Dispatch } from '@/utils/store';
 import { User } from '@/types';
 
+
+export interface AuthData {
+  phoneNumber: string;
+  password: string;
+  gender: 'Male'  | string;
+}
 export interface AppState {
   checked: boolean;
   loggedIn: boolean;
   user?: User;
+  onBoardingDone:boolean;
+  authData?: AuthData;
+  
+
+
 }
 
 const initialState: AppState = {
   checked: false,
   loggedIn: false,
   user: undefined,
+  onBoardingDone:false,
+  authData: undefined,
+
 };
 
 const slice = createSlice({
@@ -26,6 +40,21 @@ const slice = createSlice({
     setUser: (state: AppState, { payload }: PayloadAction<User | undefined>) => {
       state.user = payload;
     },
+    
+    setOnboardingDone :(state:AppState,{payload}:PayloadAction<boolean>)=>{
+
+      state.onBoardingDone=payload
+    },
+    setAuthData :(state:AppState,{payload}:PayloadAction<AuthData>)=>{
+
+      state.authData=payload
+    },
+    clearAuthData :(state:AppState)=>{
+      state.authData=undefined
+    },
+    
+
+
     reset: () => initialState,
   },
 });

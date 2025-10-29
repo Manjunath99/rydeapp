@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, Pressable, Alert } from 'react-native';
 import useColorScheme from '@/hooks/useColorScheme';
 import useScreenSize from '@/hooks/dimension';
 import Button from '@/components/elements/Button';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { colors } from '@/theme';
 import { marketingLines } from '@/constants/onboardingconstants';
 import { useState } from 'react';
@@ -16,6 +16,8 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
+import { useLoginUser, useRegisterUser } from '@/hooks/apiHooks/useUserApis';
+import { useAppSlice } from '@/slices/app.slice';
 
 const styles = StyleSheet.create({
   root: {
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
 });
 
 export default function OtpPage() {
+  const { type } = useLocalSearchParams();
   const router = useRouter();
   const { isDark } = useColorScheme();
   const { width, height } = useScreenSize();
@@ -85,9 +88,47 @@ export default function OtpPage() {
     value,
     setValue,
   });
+  const { authData } = useAppSlice();
+  const { mutate: register, isError, error, isSuccess, data } = useRegisterUser();
+  const {
+    mutate: login,
+    isError: isErrorLogin,
+    error: errorLogin,
+    isSuccess: isSuccessLogin,
+    data: dataLogin,
+  } = useLoginUser();
 
   const handleVerify = () => {
-    Alert.alert('OTP Entered', value);
+    if (type === 'signup') {
+      if (authData) {
+        register(authData, {
+          onSuccess: data => {
+            router.push('/home');
+          },
+          onError: error => {
+            console.log(error);
+          },
+        });
+      }
+    }
+    if (type === 'login') {
+      if (authData) {
+        login(
+          {
+            phoneNumber: authData.phoneNumber,
+            password: authData.password,
+          },
+          {
+            onSuccess: async data => {
+              router.push('/home');
+            },
+            onError: error => {
+              console.log(error);
+            },
+          },
+        );
+      }
+    }
   };
   return (
     <View style={[styles.root, isDark && { backgroundColor: colors.blackGray }]}>

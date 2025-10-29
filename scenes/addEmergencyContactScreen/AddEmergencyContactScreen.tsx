@@ -5,22 +5,28 @@ import { useNavigation } from '@react-navigation/native';
 
 import { v4 as uuidv4 } from 'uuid';
 import Button from '@/components/elements/Button';
+import { useAddEmergencyContact } from '@/hooks/apiHooks/useEmergencyContactApis';
+import { useAppSlice } from '@/slices/app.slice';
 
 export default function AddEmergencyContactScreen() {
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [relationship, setRelationship] = useState('');
+  const { loggedIn, user, onBoardingDone } = useAppSlice();
+
+  const { mutate: addEmergencyContact, error, data } = useAddEmergencyContact();
 
   const handleSave = () => {
     const newContact = {
-      userId: 'currentUserId', // replace with actual userId
+      userId: 'currentUserId',
       contactId: uuidv4(),
       name,
       phoneNumber,
       relationship,
       createdAt: new Date().toISOString(),
     };
+    addEmergencyContact({ payload: newContact, userId: 'currentUserId' });
 
     console.log('Saving contact:', newContact);
 

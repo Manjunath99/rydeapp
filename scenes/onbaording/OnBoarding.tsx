@@ -8,6 +8,7 @@ import { marketingLines } from '@/constants/onboardingconstants';
 import { useState } from 'react';
 import CircularProgress from '@/components/elements/KButton/KButton';
 import { AntDesign } from '@expo/vector-icons';
+import { useAppSlice } from '@/slices/app.slice';
 
 const styles = StyleSheet.create({
   root: {
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
 
 export default function OnBoarding() {
   const router = useRouter();
+  const { onBoardingDone, setOnboardingDone } = useAppSlice();
   const { isDark } = useColorScheme();
   const { width, height } = useScreenSize();
 
@@ -64,8 +66,9 @@ export default function OnBoarding() {
           <Pressable
             onPress={() => {
               if (count === marketingLines.length - 1) {
-                router.push({ pathname: '/(auth)/Login' });
+                router.replace({ pathname: '/(auth)/Login' });
               } else {
+                if (!onBoardingDone) setOnboardingDone(true);
                 setCount(count + 1);
               }
             }}>

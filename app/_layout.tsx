@@ -13,6 +13,7 @@ import Provider from '@/providers';
 import { User } from '@/types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@/services/apis/interceptors';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 // keep the splash screen visible while complete fetching resources
 SplashScreen.preventAutoHideAsync();
@@ -20,41 +21,27 @@ SplashScreen.preventAutoHideAsync();
 function Router() {
   const { isDark } = useColorScheme();
   const { dispatch, setUser, setLoggedIn } = useAppSlice();
-  const { setPersistData, getPersistData } = useDataPersist();
+  const { setPersistData, getPersistData, removeAllPersistData } = useDataPersist();
   const [isOpen, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         await Promise.all([loadImages(), loadFonts()]);
+        await removeAllPersistData();
 
-        const user = await UserService.getUserAsync();
-        const jdjd = await UserService.updateProfile({
-          name: 'Jed',
-          email: 'jed@jed.com',
-        });
+        const user = await getPersistData<User>(DataPersistKeys.USER);
+
+        // if (user) setPersistData<User>(DataPersistKeys.USER, user);
 
         if (user) {
-          console.log('[##] user', user);
+          dispatch(setUser(user));
+          dispatch(setLoggedIn(true));
         }
-
-        dispatch(setUser(user));
-        dispatch(setLoggedIn(!!user));
-        if (user) setPersistData<User>(DataPersistKeys.USER, user);
 
         SplashScreen.hideAsync();
         setOpen(true);
       } catch {
-        getPersistData<User>(DataPersistKeys.USER)
-          .then(user => {
-            if (user) dispatch(setUser(user));
-            dispatch(setLoggedIn(!!user));
-          })
-          .finally(() => {
-            SplashScreen.hideAsync();
-
-            setOpen(true);
-          });
       } finally {
         SplashScreen.hideAsync();
         setOpen(true);

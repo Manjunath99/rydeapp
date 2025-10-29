@@ -65,17 +65,26 @@ const styles = StyleSheet.create({
 export default function Login() {
   const router = useRouter();
   const { isDark } = useColorScheme();
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [gender, setGender] = useState('Male');
 
   return (
-    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+
+        alignItems: 'stretch',
+      }}>
       <View style={[styles.root, isDark && { backgroundColor: colors.blackGray }]}>
         <Text style={[styles.title, isDark && { color: colors.gray }]}>Log in</Text>
-
         <PhoneNumberField
           placeholder="Enter phone number"
-          value=""
-          onChangeText={() => {}}></PhoneNumberField>
+          value={phone}
+          onChangeText={phone => {
+            setPhone(phone);
+          }}></PhoneNumberField>
         <TextField placeholder=" Password" keyboardType="email-address"></TextField>
 
         <View
@@ -103,18 +112,35 @@ export default function Login() {
           isDark && { color: colors.white },
         ]}
         style={[styles.secondaryButton]}
-        onPress={() => {}}
+        onPress={() => {
+          router.push({
+            pathname: '/(auth)/OtpPage',
+            params: {
+              type: 'login',
+              phoneNumber: phone,
+              password: password,
+            },
+          });
+        }}
       />
-      <Text>
-        Don't have an account?{' '}
-        <Text
-          style={[styles.secondaryText, { color: colors.primary }]}
-          onPress={() => {
-            router.push({ pathname: '/(auth)/Signup' });
-          }}>
-          Sign up
+      <View
+        style={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingBottom: 24,
+        }}>
+        <Text>
+          Don't have an account?{' '}
+          <Text
+            style={[styles.secondaryText, { color: colors.primary }]}
+            onPress={() => {
+              router.replace({ pathname: '/(auth)/Signup' });
+            }}>
+            Sign up
+          </Text>
         </Text>
-      </Text>
+      </View>
     </View>
   );
 }

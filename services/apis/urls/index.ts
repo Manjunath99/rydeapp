@@ -38,7 +38,7 @@ VEHICLE: {
 
 EMERGENCY_CONTACT: {
   LIST: `/api/emergencyContacts`,
-  ADD: `/api/emergencyContacts/add`,
+  ADD: `/api/emergencyContacts`,
   UPDATE: `/api/emergencyContacts/update`,
   DELETE: `/api/emergencyContacts/delete`,
 },

@@ -18,19 +18,29 @@ export default function AddEmergencyContactScreen() {
   const { mutate: addEmergencyContact, error, data } = useAddEmergencyContact();
 
   const handleSave = () => {
+    if (name === '' || phoneNumber === '' || relationship === '' || phoneNumber.length !== 10) {
+      console.log('please fill all fields');
+      return;
+    }
     const newContact = {
-      userId: 'currentUserId',
-      contactId: uuidv4(),
-      name,
-      phoneNumber,
-      relationship,
-      createdAt: new Date().toISOString(),
+      name: name,
+      phoneNumber: phoneNumber,
+      relationship: relationship,
     };
-    addEmergencyContact({ payload: newContact, userId: 'currentUserId' });
+    console.log('Saving contact:', newContact, user?.userId);
 
-    console.log('Saving contact:', newContact);
+    addEmergencyContact(
+      { payload: newContact, userId: user?.userId || '' },
+      {
+        onSuccess: data => {
+          console.log('Contact added successfully:', data);
+        },
+        onError: error => {
+          console.error('Error adding contact:', error);
+        },
+      },
+    );
 
-    // TODO: Save to backend (DynamoDB/Controller)
     navigation.goBack();
   };
 

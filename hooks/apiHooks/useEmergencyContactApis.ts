@@ -4,6 +4,8 @@ import { EmergencyContactService } from '@/services/emeregencyContact.service';
 
 
 export const useAddEmergencyContact = () => {
+    
+
   return useMutation<EmeregencyContact, Error, { payload: Partial<EmeregencyContact>; userId: string }>({
     mutationFn: ({ payload, userId }) =>
       EmergencyContactService.addEmergencyContact(payload, userId),

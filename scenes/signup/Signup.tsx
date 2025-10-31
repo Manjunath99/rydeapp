@@ -60,7 +60,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const [gender, setGender] = useState('Male');
-  const { setAuthData } = useAppSlice();
+  const { setAuthData, dispatch } = useAppSlice();
 
   const validateForm = () => {
     return (
@@ -115,13 +115,11 @@ export default function Signup() {
             alert('Please fill in all fields');
             return;
           }
+          dispatch(setAuthData({ phoneNumber: phone, password: password, gender: gender }));
           router.push({
             pathname: '/(auth)/OtpPage',
             params: {
               type: 'signup',
-              phoneNumber: phone,
-              password: password,
-              gender: gender,
             },
           });
         }}
@@ -138,8 +136,6 @@ export default function Signup() {
           <Text
             style={[styles.secondaryText, { color: colors.primary }]}
             onPress={() => {
-              setAuthData({ phoneNumber: phone, password: password, gender: gender });
-
               router.replace({ pathname: '/(auth)/Login' });
             }}>
             Login

@@ -5,6 +5,7 @@ import emergencyContact from '@/slices/emergencyConatct.slice';
 import config from '@/utils/config';
 import { Env } from '@/types/env';
 import logger from 'redux-logger';
+import {userPersistenceMiddleware} from '@/middleware/userPersistence';
 
 const store = configureStore({
   reducer: {
@@ -13,8 +14,16 @@ const store = configureStore({
     emergencyContact,
     // add more store ...
   },
-  middleware: getDefaultMiddleware =>
-    config.env === Env.dev ? getDefaultMiddleware() : getDefaultMiddleware().concat(logger),
+   middleware: getDefaultMiddleware => {
+    const middlewares = getDefaultMiddleware({ serializableCheck: false }).concat(userPersistenceMiddleware);
+
+    if (config.env === Env.dev) {
+     middlewares.push(logger);
+    }
+
+    return middlewares;
+  },
+  
   devTools: config.env === Env.dev,
 });
 

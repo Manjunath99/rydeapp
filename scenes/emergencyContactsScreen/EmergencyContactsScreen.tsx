@@ -11,22 +11,29 @@ export default function EmergencyContactsScreen() {
   const router = useRouter();
   const { user } = useAppSlice();
 
-  const { data, error, isLoading, refetch } = useGetEmergencyContacts(user?.email ?? '');
+  const { data: contacts, error, isLoading, refetch } = useGetEmergencyContacts(user?.userId ?? '');
 
-  const [contacts, setContacts] = useState([
-    {
-      contactId: '1',
-      name: 'John Doe',
-      phoneNumber: '+91 9876543210',
-      relationship: 'Brother',
-    },
-    {
-      contactId: '2',
-      name: 'Priya Patel',
-      phoneNumber: '+91 9123456780',
-      relationship: 'Friend',
-    },
-  ]);
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Loading...</Text>
+      </View>
+    );
+  }
+
+  if (contacts?.length === 0) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>You have no emergency contacts</Text>
+        <Button
+          title="Add Contact"
+          onPress={() => {
+            router.push('/profile/emergencyContacts/AddEmergencyContactScreen');
+          }}
+        />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

@@ -46,8 +46,7 @@ const slice = createSlice({
       state.onBoardingDone=payload
     },
     setAuthData :(state:AppState,{payload}:PayloadAction<AuthData>)=>{
-
-      state.authData=payload
+     state.authData=payload
     },
     clearAuthData :(state:AppState)=>{
       state.authData=undefined
@@ -66,3 +65,4 @@ export function useAppSlice() {
 }
 
 export default slice.reducer;
+export const { setUser, setLoggedIn, setOnboardingDone, setAuthData, clearAuthData, reset } = slice.actions;

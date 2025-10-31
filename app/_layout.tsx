@@ -32,8 +32,6 @@ function Router() {
 
         const user = await getPersistData<User>(DataPersistKeys.USER);
 
-        // if (user) setPersistData<User>(DataPersistKeys.USER, user);
-
         if (user) {
           dispatch(setUser(user));
           dispatch(setLoggedIn(true));

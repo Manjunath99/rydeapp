@@ -1,6 +1,6 @@
 export interface EmeregencyContact {
   name: string;
-  phone: string;
+  phoneNumber: string;
   relationship: string;
   contactId: string;
   userId: string;

@@ -4,8 +4,11 @@ import { TokenService } from "../token.service";
 export function attachInterceptors(apiInstance: any) {
   apiInstance.interceptors.request.use(
   async (config:any) => {
+
+    
     
     const token = await TokenService.gettoken(); 
+    console.log("configconfigconfigconfig",config,token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

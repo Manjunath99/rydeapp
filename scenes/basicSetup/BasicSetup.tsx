@@ -95,8 +95,8 @@ export default function BasicSetup() {
           </View>
         </View>
 
-        <TextField placeholder="Email" keyboardType="email-address"></TextField>
-        <TextField placeholder="Date of Birth " keyboardType="email-address"></TextField>
+        <TextField placeholder="First Name" keyboardType="default" />
+        <TextField placeholder="Last Name" keyboardType="default" />
 
         <Text style={[styles.subtitle, isDark && { color: colors.gray }]}>
           Do you have a vehicle?

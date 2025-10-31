@@ -47,8 +47,9 @@
 //   );
 // }
 
+import { useAppSlice } from '@/slices/app.slice';
 import React, { useState, useRef } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 type Coordinates = [number, number];
@@ -57,6 +58,7 @@ export default function Home() {
   const [pickupText, setPickupText] = useState<string>('');
   const [dropoffText, setDropoffText] = useState<string>('');
   const webviewRef = useRef<WebView>(null);
+  const { user } = useAppSlice();
   const testHtml = `<html><body><h1>Hello WebView</h1></body></html>`;
 
   const olaHtml = `
@@ -121,6 +123,7 @@ export default function Home() {
           }}
         />
       </View>
+      <Text>This is a long text that will not wrap to the next line.</Text>
 
       <View style={{ flex: 1, backgroundColor: 'red' }}>
         <WebView

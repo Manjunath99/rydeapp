@@ -2,7 +2,7 @@
 import { RegisterUserPayload } from '@/types/authPayload/registerPayload';
 import { mainApiMethods } from './apis/index';
 import { API_URLS } from './apis/urls';
-import { User } from '@/types';
+import { User,AuthResponse } from '@/types';
 
 export const UserService = {
 
@@ -16,9 +16,9 @@ export const UserService = {
     }
   },
 
-  register: async (payload: Partial<RegisterUserPayload>): Promise<User> => {
+  register: async (payload: Partial<RegisterUserPayload>): Promise<AuthResponse> => {
     try {
-      const data = await mainApiMethods.post<User>(API_URLS.USER.REGISTER, payload);
+      const data = await mainApiMethods.post<AuthResponse>(API_URLS.USER.REGISTER, payload);
       return data;
     } catch (err) {
       return Promise.reject(err);

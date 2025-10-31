@@ -64,7 +64,7 @@ export default function ProfileStackLayout() {
         }}
       />
       <Stack.Screen
-        name="emergencyContacts/EmergencyContactsScreen"
+        name="emergencyContacts/EmergencyContactsScreen/index"
         options={{
           title: 'Saved Places',
           headerTitle: 'Saved Places',
@@ -72,14 +72,14 @@ export default function ProfileStackLayout() {
       />
 
       <Stack.Screen
-        name="savedRoute/SavedRoutes"
+        name="savedRoute/SavedRoutes/index"
         options={{
           title: 'Saved Routes',
           headerTitle: 'Saved Places',
         }}
       />
       <Stack.Screen
-        name="savedRoute/AddNewRoute"
+        name="savedRoute/AddNewRoute/index"
         options={{
           title: 'Add New Routes',
           headerTitle: 'Add New Routes',
@@ -108,28 +108,28 @@ export default function ProfileStackLayout() {
       />
 
       <Stack.Screen
-        name="reviews/ReviewsScreen"
+        name="reviews/ReviewsScreen/index"
         options={{
           title: 'Saved Places',
           headerTitle: 'Saved Places',
         }}
       />
       <Stack.Screen
-        name="reviews/AddReviewScreen"
+        name="reviews/AddReviewScreen/index"
         options={{
           title: 'Saved Places',
           headerTitle: 'Saved Places',
         }}
       />
       <Stack.Screen
-        name="helpAndSupport"
+        name="helpAndSupport/index"
         options={{
           title: 'Saved Places',
           headerTitle: 'Saved Places',
         }}
       />
       <Stack.Screen
-        name="privacyAndSupport"
+        name="privacyAndSupport/index"
         options={{
           title: 'Saved Places',
           headerTitle: 'Saved Places',

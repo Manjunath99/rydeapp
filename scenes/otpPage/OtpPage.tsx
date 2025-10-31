@@ -18,6 +18,8 @@ import {
 } from 'react-native-confirmation-code-field';
 import { useLoginUser, useRegisterUser } from '@/hooks/apiHooks/useUserApis';
 import { useAppSlice } from '@/slices/app.slice';
+import { DataPersistKeys, useDataPersist } from '@/hooks/useDataPersist';
+import { User } from '@/types/user';
 
 const styles = StyleSheet.create({
   root: {
@@ -81,6 +83,7 @@ export default function OtpPage() {
   const router = useRouter();
   const { isDark } = useColorScheme();
   const { width, height } = useScreenSize();
+  const { setPersistData, getPersistData, removeAllPersistData } = useDataPersist();
 
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -88,8 +91,9 @@ export default function OtpPage() {
     value,
     setValue,
   });
-  const { authData } = useAppSlice();
+  const { authData, setUser, dispatch } = useAppSlice();
   const { mutate: register, isError, error, isSuccess, data } = useRegisterUser();
+
   const {
     mutate: login,
     isError: isErrorLogin,
@@ -98,12 +102,15 @@ export default function OtpPage() {
     data: dataLogin,
   } = useLoginUser();
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     if (type === 'signup') {
       if (authData) {
         register(authData, {
-          onSuccess: data => {
-            router.push('/home');
+          onSuccess: async data => {
+            const res = await setPersistData(DataPersistKeys.ACCESS_TOKEN, data.accessToken);
+
+            dispatch(setUser(data.user));
+            router.replace('/(tabs)/home');
           },
           onError: error => {
             console.log(error);
@@ -116,7 +123,7 @@ export default function OtpPage() {
         login(
           {
             phoneNumber: authData.phoneNumber,
-            password: authData.password,
+            passwordHash: authData.password,
           },
           {
             onSuccess: async data => {
@@ -163,7 +170,9 @@ export default function OtpPage() {
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
         onPress={() => {
-          router.replace('/(setup)/BasicSetup');
+          console.log('hegr fhgjfr jfbr');
+          handleVerify();
+          //router.replace('/(setup)/BasicSetup');
         }}
       />
     </View>

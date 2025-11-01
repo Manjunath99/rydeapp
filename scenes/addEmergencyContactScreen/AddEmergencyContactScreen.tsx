@@ -19,7 +19,6 @@ export default function AddEmergencyContactScreen() {
 
   const handleSave = () => {
     if (name === '' || phoneNumber === '' || relationship === '' || phoneNumber.length !== 10) {
-      console.log('please fill all fields');
       return;
     }
     const newContact = {
@@ -27,17 +26,12 @@ export default function AddEmergencyContactScreen() {
       phoneNumber: phoneNumber,
       relationship: relationship,
     };
-    console.log('Saving contact:', newContact, user?.userId);
 
     addEmergencyContact(
       { payload: newContact, userId: user?.userId || '' },
       {
-        onSuccess: data => {
-          console.log('Contact added successfully:', data);
-        },
-        onError: error => {
-          console.error('Error adding contact:', error);
-        },
+        onSuccess: data => {},
+        onError: error => {},
       },
     );
 

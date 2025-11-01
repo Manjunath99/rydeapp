@@ -8,6 +8,7 @@ import { useState } from 'react';
 import TextField from '@/components/elements/TextField';
 import { AntDesign } from '@expo/vector-icons';
 import PhoneNumberField from '@/components/elements/PhoneNumberField';
+import { useAppSlice } from '@/slices/app.slice';
 
 const styles = StyleSheet.create({
   root: {
@@ -68,7 +69,7 @@ export default function Login() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('Male');
-
+  const { setAuthData, dispatch } = useAppSlice();
   return (
     <View
       style={{
@@ -85,7 +86,11 @@ export default function Login() {
           onChangeText={phone => {
             setPhone(phone);
           }}></PhoneNumberField>
-        <TextField placeholder=" Password" keyboardType="email-address"></TextField>
+        <TextField
+          placeholder=" Password"
+          value={password}
+          onChangeText={setPassword}
+          keyboardType="email-address"></TextField>
 
         <View
           style={{
@@ -113,12 +118,12 @@ export default function Login() {
         ]}
         style={[styles.secondaryButton]}
         onPress={() => {
+          dispatch(setAuthData({ phoneNumber: phone, password: password, gender: gender }));
           router.push({
             pathname: '/(auth)/OtpPage',
+
             params: {
               type: 'login',
-              phoneNumber: phone,
-              password: password,
             },
           });
         }}

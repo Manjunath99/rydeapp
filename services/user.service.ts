@@ -2,14 +2,16 @@
 import { RegisterUserPayload } from '@/types/authPayload/registerPayload';
 import { mainApiMethods } from './apis/index';
 import { API_URLS } from './apis/urls';
-import { User,AuthResponse } from '@/types';
+import { User,AuthResponse,  } from '@/types';
+import { Loginrequest, LoginResponse } from '@/types/authPayload/loginPayload';
 
 export const UserService = {
 
 
-  login : async (payload: Partial<User>) : Promise<User> => {
+  login : async (payload: Partial<Loginrequest>) : Promise<LoginResponse> => {
     try {
-      const data = await mainApiMethods.post<User>(API_URLS.USER.LOGIN, payload);
+      //console.log("API_URLS.USER.LOGIN",API_URLS.USER.LOGIN,payload);
+      const data = await mainApiMethods.post<LoginResponse>(API_URLS.USER.LOGIN, payload);
       return data;
     } catch (err) {
       return Promise.reject(err);
@@ -30,6 +32,7 @@ export const UserService = {
   
   getCurrentUser: async (): Promise<User> => {
     try {
+
       const data = await mainApiMethods.get<User>(API_URLS.USER.CURRENT);
       return data; 
     } catch (err) {

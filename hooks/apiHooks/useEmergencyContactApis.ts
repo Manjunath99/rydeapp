@@ -15,6 +15,7 @@ export const useAddEmergencyContact = () => {
 
 
 export const useGetEmergencyContacts = (userId: string) => {
+  
   return useQuery<EmergencyContacts>({
     queryKey: ['emergency-contacts'],
 queryFn: ({ queryKey }) => {

@@ -11,6 +11,8 @@ export default function EmergencyContactsScreen() {
   const router = useRouter();
   const { user } = useAppSlice();
 
+  //console.log('useruseruseruseruser', user);
+
   const { data: contacts, error, isLoading, refetch } = useGetEmergencyContacts(user?.userId ?? '');
 
   if (isLoading) {
@@ -31,6 +33,14 @@ export default function EmergencyContactsScreen() {
             router.push('/profile/emergencyContacts/AddEmergencyContactScreen');
           }}
         />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Error: {error.message}</Text>
       </View>
     );
   }

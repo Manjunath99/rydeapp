@@ -3,7 +3,7 @@ import { DataPersistKeys, useDataPersist } from "@/hooks/useDataPersist";
   const { setPersistData, getPersistData, removeAllPersistData } = useDataPersist();
 
 export const TokenService ={
-  gettoken: async (): Promise<String> => {
+  gettoken: async (): Promise<String | undefined> => {
 
   const toekn = await getPersistData<String>(DataPersistKeys.ACCESS_TOKEN);
 

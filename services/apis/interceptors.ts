@@ -8,10 +8,18 @@ export function attachInterceptors(apiInstance: any) {
     
     
     const token = await TokenService.gettoken(); 
-    console.log("configconfigconfigconfig",config,token);
+
+    console.log("configconfigconfigconfig",token);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+  //   const curl = [
+  //   `curl -X ${config.method?.toUpperCase()}`,
+  //   `'${config.baseURL || ''}${config.url}'`,
+  //   ...Object.entries(config.headers || {}).map(([k, v]) => `-H '${k}: ${v}'`),
+  //   config.data ? `--data '${JSON.stringify(config.data)}'` : '',
+  // ].join(' \\\n  ');
+  // console.log('🧠 CURL REQUEST:\n', curl);
     return config;
   },
   (error:any) => {

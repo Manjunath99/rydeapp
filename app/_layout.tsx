@@ -28,7 +28,6 @@ function Router() {
     (async () => {
       try {
         await Promise.all([loadImages(), loadFonts()]);
-        await removeAllPersistData();
 
         const user = await getPersistData<User>(DataPersistKeys.USER);
 

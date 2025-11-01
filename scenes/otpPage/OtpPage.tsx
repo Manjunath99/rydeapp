@@ -20,6 +20,8 @@ import { useLoginUser, useRegisterUser } from '@/hooks/apiHooks/useUserApis';
 import { useAppSlice } from '@/slices/app.slice';
 import { DataPersistKeys, useDataPersist } from '@/hooks/useDataPersist';
 import { User } from '@/types/user';
+import { UserService } from '@/services/user.service';
+import { QueryClient } from '@tanstack/react-query';
 
 const styles = StyleSheet.create({
   root: {
@@ -84,6 +86,7 @@ export default function OtpPage() {
   const { isDark } = useColorScheme();
   const { width, height } = useScreenSize();
   const { setPersistData, getPersistData, removeAllPersistData } = useDataPersist();
+  const queryClient = new QueryClient();
 
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -107,7 +110,8 @@ export default function OtpPage() {
       if (authData) {
         register(authData, {
           onSuccess: async data => {
-            const res = await setPersistData(DataPersistKeys.ACCESS_TOKEN, data.accessToken);
+            await setPersistData(DataPersistKeys.ACCESS_TOKEN, data.accessToken);
+            await setPersistData(DataPersistKeys.REFRESH_TOKEN, data.refreshToken);
 
             dispatch(setUser(data.user));
             router.replace('/(tabs)/home');
@@ -123,11 +127,17 @@ export default function OtpPage() {
         login(
           {
             phoneNumber: authData.phoneNumber,
-            passwordHash: authData.password,
+            password: authData.password,
           },
           {
             onSuccess: async data => {
-              router.push('/home');
+              const res = await setPersistData(DataPersistKeys.ACCESS_TOKEN, data.accessToken);
+              const res1 = await setPersistData(DataPersistKeys.REFRESH_TOKEN, data.refreshToken);
+
+              const userData = await UserService.getCurrentUser();
+              dispatch(setUser(userData));
+              queryClient.setQueryData(['current-user'], userData);
+              router.replace('/(tabs)/home');
             },
             onError: error => {
               console.log(error);
@@ -170,7 +180,6 @@ export default function OtpPage() {
         titleStyle={[styles.buttonTitle, isDark && { color: colors.blackGray }]}
         style={styles.button}
         onPress={() => {
-          console.log('hegr fhgjfr jfbr');
           handleVerify();
           //router.replace('/(setup)/BasicSetup');
         }}

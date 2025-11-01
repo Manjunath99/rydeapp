@@ -39,4 +39,7 @@ export interface AuthResponse {
   accessToken: string;
   message: string;
   user: User;
+  refreshToken: string;
 }
+
+

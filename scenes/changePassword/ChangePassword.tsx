@@ -2,13 +2,17 @@ import { View, Text, TextInput, ScrollView, Button, Alert, StyleSheet } from 're
 import { useState } from 'react';
 import { colors } from '@/theme';
 import useColorScheme from '@/hooks/useColorScheme';
+import { useChangePassword } from '@/hooks/apiHooks/useUserApis';
+import { useRouter } from 'expo-router';
 
 export default function ChangePasswordScreen() {
+  const router = useRouter();
   const { isDark } = useColorScheme();
 
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
+  const { mutate: changePassword, isPending, error, data } = useChangePassword();
 
   const handleChangePassword = () => {
     if (!currentPassword || !newPassword || !retypePassword) {
@@ -21,13 +25,22 @@ export default function ChangePasswordScreen() {
       return;
     }
 
-    // Call API to change password
-    console.log({ currentPassword, newPassword });
+    changePassword(
+      { oldPassword: currentPassword, newPassword: newPassword },
+      {
+        onSuccess: () => {
+          Alert.alert('Success', 'Password changed successfully!');
+          router.back();
+        },
+        onError: () => {
+          Alert.alert('Error', 'Failed to change password');
+        },
+      },
+    );
 
-    Alert.alert('Success', 'Password changed successfully!');
-    setCurrentPassword('');
-    setNewPassword('');
-    setRetypePassword('');
+    // setCurrentPassword('');
+    // setNewPassword('');
+    // setRetypePassword('');
   };
 
   return (

@@ -19,6 +19,8 @@ export const API_URLS = {
     CURRENT: `/api/auth/current`,
     UPDATE: `/api/auth/update`,
     DELETE: `/api/auth/delete`,
+    REFRESHTOKEN: `/api/auth/refreshToken`,
+    CHANGEPASSWORD: `/api/auth/changePassword`,
   },
   RIDE: {
     LIST: `/api/rideHistory/list`,

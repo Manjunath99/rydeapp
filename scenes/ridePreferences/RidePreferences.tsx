@@ -7,9 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
+import { useUpdateUser } from '@/hooks/apiHooks/useUserApis';
 
 export default function RidePreferences() {
   const [preferQuietRide, setPreferQuietRide] = useState(false);
@@ -18,13 +20,25 @@ export default function RidePreferences() {
   const [shareRide, setShareRide] = useState(false);
   const [paymentPreference, setPaymentPreference] = useState('Wallet');
 
+  const { mutate: changeRidePreferences, isPending, error, data } = useUpdateUser();
+
   const handleSave = () => {
-    console.log({
+    const preferences = {
       preferQuietRide,
       preferACOn,
       rideTypePreference,
       shareRide,
       paymentPreference,
+    };
+
+    console.log(preferences);
+    changeRidePreferences(preferences, {
+      onSuccess: () => {
+        Alert.alert('Preferences updated successfully');
+      },
+      onError: error => {
+        Alert.alert('Error updating preferences:');
+      },
     });
   };
 

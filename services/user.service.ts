@@ -2,13 +2,15 @@
 import { RegisterUserPayload } from '@/types/authPayload/registerPayload';
 import { mainApiMethods } from './apis/index';
 import { API_URLS } from './apis/urls';
-import { User,AuthResponse,  } from '@/types';
-import { Loginrequest, LoginResponse } from '@/types/authPayload/loginPayload';
+import { User, AuthResponse } from '@/types';
+import {
+  ChangePasswordRequest,
+  Loginrequest,
+  LoginResponse,
+} from '@/types/authPayload/loginPayload';
 
 export const UserService = {
-
-
-  login : async (payload: Partial<Loginrequest>) : Promise<LoginResponse> => {
+  login: async (payload: Partial<Loginrequest>): Promise<LoginResponse> => {
     try {
       //console.log("API_URLS.USER.LOGIN",API_URLS.USER.LOGIN,payload);
       const data = await mainApiMethods.post<LoginResponse>(API_URLS.USER.LOGIN, payload);
@@ -27,30 +29,35 @@ export const UserService = {
     }
   },
 
-
-
-  
   getCurrentUser: async (): Promise<User> => {
     try {
-
       const data = await mainApiMethods.get<User>(API_URLS.USER.CURRENT);
-      return data; 
+      return data;
     } catch (err) {
       return Promise.reject(err);
     }
   },
 
-  // updateProfile: async (payload: Partial<User>): Promise<User> => {
-  //   try {
-  //     console.log('updateProfile', API_URLS.USER.UPDATE, payload);
-  //     const data = await mainApiMethods.put<User>(API_URLS.USER.UPDATE, payload);
-  //     console.log('data', data);
-  //     return data;
-  //   } catch (err) {
-  //      console.log('datadatadata', err);
-  //     return Promise.reject(err);
-  //   }
-  // },
+  updateProfile: async (payload: Partial<User>): Promise<User> => {
+    try {
+      const data = await mainApiMethods.post<User>(API_URLS.USER.UPDATE, payload);
+      console.log('data', data);
+      return data;
+    } catch (err) {
+      console.log('datadatadata', err);
+      return Promise.reject(err);
+    }
+  },
+
+  changePassword: async (payload: Partial<ChangePasswordRequest>): Promise<User> => {
+    try {
+      const data = await mainApiMethods.post<User>(API_URLS.USER.CHANGEPASSWORD, payload);
+
+      return data;
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  },
 
   // deleteAccount: async (): Promise<void> => {
   //   try {
@@ -65,9 +72,4 @@ export const UserService = {
   //   await new Promise((resolve) => setTimeout(resolve, 500));
   //   return { name: 'Test User', email: 'testuser@test.com' };
   // },
-
-
 };
-
-
-
